@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecionando…</title>
+    <script>
+      // Apps de página única hospedados em subpastas (ex.: /retainiq/) recebem a rota original em ?p=
+      (function () {
+        var l = window.location
+        if (l.pathname.indexOf('/retainiq/') === 0 || l.pathname === '/retainiq') {
+          l.replace('/retainiq/?p=' + encodeURIComponent(l.pathname + l.search) + l.hash)
+        } else {
+          l.replace('/')
+        }
+      })()
+    </script>
+  </head>
+  <body></body>
+</html>
