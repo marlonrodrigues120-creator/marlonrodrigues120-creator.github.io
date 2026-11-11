@@ -333,7 +333,7 @@ section{padding-block:clamp(56px,8vw,104px)}
 @media (prefers-reduced-motion:reduce){.cue i{animation:none}.about p.big .wd{opacity:1}.card{transform:none!important}}
 
 /* nav spy */
-.nav a.cur{color:var(--fg);background:var(--accent-soft)}
+.nav a.navon{color:var(--fg);background:var(--accent-soft)}
 
 /* case study */
 .case{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:48px}
@@ -992,7 +992,7 @@ function navSpy() {
     es.forEach(function (en) {
       if (!en.isIntersecting) return;
       var id = en.target.id;
-      $$(".nav a").forEach(function (a) { a.classList.toggle("cur", a.getAttribute("href") === "#" + (map[id] || id)); });
+      $$(".nav a").forEach(function (a) { a.classList.toggle("navon", a.getAttribute("href") === "#" + (map[id] || id)); });
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   Object.keys(map).forEach(function (k) { var el = document.getElementById(k); if (el) fxSpy.observe(el); });
