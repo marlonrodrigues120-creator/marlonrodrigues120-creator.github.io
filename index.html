@@ -412,7 +412,7 @@ var S = JSON.parse(document.getElementById("state").textContent);
 /* ---------- conteúdo publicado e login do dono (Supabase) ---------- */
 var SB_URL = "https://iyanekbwwnljwkoyyulh.supabase.co", SB_KEY = "sb_publishable_uLg9aYybchu3-S2AdPGHpw_hoINlRy9";
 var OWNER_ID = "68f191f6-cf22-4f76-bc6b-653a3f00fff2", STATE_FILE = "state.json";
-var sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL, SB_KEY) : null;
+var sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL, SB_KEY, { auth: { storage: window.sessionStorage, persistSession: true } }) : null;
 var session = null;
 var $ = function (s, r) { return (r || document).querySelector(s); };
 var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -1400,6 +1400,7 @@ function loginForm() {
     fld("lg-email", "E-mail", "", { type: "email" }) + fld("lg-pass", "Senha", "", { type: "password" }) +
     '<p id="lg-err" role="alert" style="color:#e5484d;font-size:.85rem;margin:6px 0 0" hidden></p>' +
     '<div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px"><button class="btn sm ghost" data-act="close-login">Cancelar</button><button class="btn sm accent" data-act="do-login">Entrar</button></div>');
+  ["lg-email", "lg-pass"].forEach(function (id) { var el = document.getElementById(id); if (el) { el.setAttribute("autocomplete", id === "lg-pass" ? "new-password" : "off"); el.setAttribute("name", "pf-" + id + "-" + Date.now()); } });
   var pw = document.getElementById("lg-pass");
   if (pw) pw.addEventListener("keydown", function (e) { if (e.key === "Enter") doLogin(); });
 }
