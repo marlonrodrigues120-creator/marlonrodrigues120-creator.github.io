@@ -700,7 +700,7 @@ const VIEWS=['entrar','inicio','seguranca','ocorrencia','manutencao','opiniao','
 
 /* ---------- contas (protótipo: guardadas no navegador; produção: Supabase Auth) ---------- */
 async function hashPw(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('gymsafe:'+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=0;for(const c of 'gymsafe:'+s)h=(h*31+c.charCodeAt(0))|0;return 'x'+h}}
-async function seedUsers(){if(Store.get('usuarios',null))return;Store.set('usuarios',[{nome:'Ana Souza',email:'aluno@gymsafe.app',perfil:'Aluno(a)',senha:await hashPw('123456'),criadoEm:new Date().toISOString()}])}
+async function seedUsers(){const us=Store.get('usuarios',null);if(us){const d=us.find(u=>u.email==='aluno@gymsafe.app'&&u.nome==='Ana Souza');if(d){d.nome='Marlon';Store.set('usuarios',us);const se=Store.get('sessao',null);if(se&&se.email===d.email){se.nome='Marlon';setSessao(se)}}return}Store.set('usuarios',[{nome:'Marlon',email:'aluno@gymsafe.app',perfil:'Aluno(a)',senha:await hashPw('123456'),criadoEm:new Date().toISOString()}])}
 function setSessao(s){state.sessao=s;Store.set('sessao',s)}
 function entrarVisitante(local,silent){setSessao({tipo:'visitante',nome:'Visitante',em:new Date().toISOString()});if(local)state.localQR=local;if(!silent)toast(local?'Acesso via QR Code: '+ambNome(local):'Bem-vindo(a) ao GymSafe')}
 const iniciais=n=>(n||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
