@@ -1003,7 +1003,7 @@ function protoDetail(r,admin){
 }
 
 /* ---------- ENTRADA ---------- */
-const APP_URL=(/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent|anthropic/.test(location.host))?location.origin+'/':'https://gymsafe.vercel.app/';
+const APP_URL=(/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent|anthropic/.test(location.host))?location.origin+location.pathname.replace(/index\.html$/,''):'https://gymsafe.vercel.app/';
 V.entrar=()=>{
   const t=state.authTab,c=cfg();
   const pw=(n,ph,ac)=>`<div class="pw"><input class="inp" type="password" name="${n}" placeholder="${ph}" autocomplete="${ac}" required><button type="button" data-act="verSenha" aria-label="Mostrar senha">${ic('eye')}</button></div>`;
